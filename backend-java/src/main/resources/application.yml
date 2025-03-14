@@ -1,0 +1,20 @@
+server:
+  port: 3000
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/efficiency_tools
+
+jwt:
+  secret: your_jwt_secret_key
+  expiration: 604800000 # 7天
+
+wechat:
+  appId: wxc880a9bd21d6dcfd
+  appSecret: bd8736acef6d915b4edfeef79a122c35
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true 

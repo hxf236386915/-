@@ -1,0 +1,47 @@
+<view class="settings-container">
+  <!-- 用户信息 -->
+  <view class="user-info">
+    <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+    <text class="nickname">{{userInfo.nickName}}</text>
+  </view>
+
+  <!-- 服务配置 -->
+  <view class="section">
+    <view class="section-title">服务配置</view>
+    
+    <!-- Flomo配置 -->
+    <view class="config-item">
+      <view class="config-header">
+        <text class="config-title">Flomo</text>
+        <switch checked="{{config.flomo.enabled}}" bindchange="handleFlomoSwitch" />
+      </view>
+      <input 
+        class="config-input {{!config.flomo.enabled ? 'disabled' : ''}}"
+        type="text"
+        placeholder="请输入Flomo API Key"
+        value="{{config.flomo.apiKey}}"
+        disabled="{{!config.flomo.enabled}}"
+        bindinput="handleFlomoInput"
+      />
+    </view>
+
+    <!-- Notion配置 -->
+    <view class="config-item">
+      <view class="config-header">
+        <text class="config-title">Notion</text>
+        <switch checked="{{config.notion.enabled}}" bindchange="handleNotionSwitch" />
+      </view>
+      <input 
+        class="config-input {{!config.notion.enabled ? 'disabled' : ''}}"
+        type="text"
+        placeholder="请输入Notion API Key"
+        value="{{config.notion.apiKey}}"
+        disabled="{{!config.notion.enabled}}"
+        bindinput="handleNotionInput"
+      />
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <button class="logout-btn" type="warn" bindtap="handleLogout">退出登录</button>
+</view> 

@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="header">
+    <image class="logo" src="/static/logo/logo.png" mode="aspectFit"></image>
+    <text class="title">效率小工具</text>
+    <text class="subtitle">让生活更高效</text>
+  </view>
+  
+  <view class="content">
+    <text class="description">登录后即可使用全部功能</text>
+    <button 
+      class="login-btn {{loading ? 'loading' : ''}}"
+      bindtap="handleLogin"
+      disabled="{{loading}}"
+    >
+      <text>{{loading ? '登录中...' : '微信一键登录'}}</text>
+    </button>
+  </view>
+</view> 

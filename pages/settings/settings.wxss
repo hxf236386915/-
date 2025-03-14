@@ -1,0 +1,89 @@
+.container {
+  padding: 20px;
+  background-color: #f6f6f6;
+  min-height: 100vh;
+}
+
+.user-info {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.user-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.user-id {
+  font-size: 14px;
+  color: #999;
+}
+
+.section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.config-item {
+  margin-bottom: 15px;
+}
+
+.service-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.service-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.api-key-input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+.logout-section {
+  margin-top: 30px;
+}
+
+.logout-btn {
+  width: 100% !important;
+} 

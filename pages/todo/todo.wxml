@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 添加待办事项 -->
+  <view class="add-todo">
+    <input 
+      class="todo-input" 
+      placeholder="输入新的待办事项" 
+      value="{{newTodo}}"
+      bindinput="inputTodo"
+    />
+    <button class="add-btn" bindtap="addTodo">添加</button>
+  </view>
+
+  <!-- 待办事项列表 -->
+  <view class="todo-list">
+    <view wx:if="{{loading}}" class="loading">加载中...</view>
+    <view wx:elif="{{!todos.length}}" class="empty">暂无待办事项</view>
+    <block wx:else>
+      <view 
+        wx:for="{{todos}}" 
+        wx:key="id" 
+        class="todo-item {{item.completed ? 'completed' : ''}}"
+      >
+        <view class="todo-content" bindtap="toggleTodo" data-id="{{item.id}}">
+          <icon type="{{item.completed ? 'success' : 'circle'}}" size="20"/>
+          <text>{{item.content}}</text>
+        </view>
+        <view class="todo-actions">
+          <text class="todo-time">{{item.createTime}}</text>
+          <icon 
+            type="clear" 
+            size="20" 
+            bindtap="deleteTodo" 
+            data-id="{{item.id}}"
+          />
+        </view>
+      </view>
+    </block>
+  </view>
+</view> 

@@ -1,0 +1,19 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@dcloudio/uni-app": "^2.0.2-4050620250311002",
+    "@vue/cli-service": "^5.0.8",
+    "crypto-js": "^4.2.0",
+    "vue": "^3.5.13",
+    "vuex": "^4.1.0"
+  }
+}
