@@ -1,0 +1,241 @@
+.container {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 30rpx;
+}
+
+.note-edit {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #fff;
+}
+
+.title-input {
+  padding: 20rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.title-input input {
+  font-size: 36rpx;
+  font-weight: 500;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+}
+
+.toolbar .left,
+.toolbar .right {
+  display: flex;
+  gap: 10rpx;
+}
+
+.tool-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  background: #fff;
+  border: 1px solid #ddd;
+  transition: all 0.3s;
+}
+
+.tool-btn:active,
+.tool-btn.active {
+  background: #e9ecef;
+  border-color: #ced4da;
+}
+
+.tool-btn text {
+  font-size: 28rpx;
+}
+
+.content {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.content textarea {
+  width: 100%;
+  height: 100%;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.preview {
+  flex: 1;
+  padding: 20rpx;
+  overflow-y: auto;
+}
+
+.preview rich-text {
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+/* Markdown 预览样式 */
+.preview :global(h1) {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin: 30rpx 0;
+}
+
+.preview :global(h2) {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin: 24rpx 0;
+}
+
+.preview :global(h3) {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 20rpx 0;
+}
+
+.preview :global(p) {
+  margin: 16rpx 0;
+}
+
+.preview :global(ul),
+.preview :global(ol) {
+  padding-left: 40rpx;
+  margin: 16rpx 0;
+}
+
+.preview :global(li) {
+  margin: 8rpx 0;
+}
+
+.preview :global(code) {
+  background: #f5f5f5;
+  padding: 4rpx 8rpx;
+  border-radius: 4rpx;
+  font-family: monospace;
+}
+
+.preview :global(pre) {
+  background: #f5f5f5;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  overflow-x: auto;
+  margin: 16rpx 0;
+}
+
+.preview :global(blockquote) {
+  border-left: 4px solid #ddd;
+  padding-left: 16rpx;
+  color: #666;
+  margin: 16rpx 0;
+}
+
+.preview :global(img) {
+  max-width: 100%;
+  margin: 16rpx 0;
+}
+
+.preview :global(a) {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* 附件列表样式 */
+.attachments {
+  padding: 20rpx;
+  border-top: 1px solid #eee;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.image-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16rpx;
+}
+
+.image-item {
+  position: relative;
+  padding-bottom: 100%;
+}
+
+.image-item image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8rpx;
+}
+
+.image-item .delete-btn {
+  position: absolute;
+  top: -16rpx;
+  right: -16rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-item .delete-btn text {
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.image-item .loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 8rpx;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.file-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.loading {
+  font-size: 24rpx;
+  color: #666;
+} 

@@ -1,0 +1,83 @@
+<view class="container">
+  <view class="todo-detail">
+    <!-- 标题和完成状态 -->
+    <view class="header">
+      <view class="title-wrapper">
+        <textarea
+          class="title"
+          value="{{todo.content}}"
+          placeholder="请输入待办事项"
+          auto-height
+          bindblur="updateContent"
+        />
+      </view>
+      <view class="status" bindtap="toggleComplete">
+        <icon type="{{todo.completed ? 'success' : 'circle'}}" size="20" color="{{todo.completed ? '#07c160' : '#999'}}" />
+        <text>{{todo.completed ? '已完成' : '未完成'}}</text>
+      </view>
+    </view>
+
+    <!-- 详细描述 -->
+    <view class="section">
+      <view class="section-title">详细描述</view>
+      <textarea
+        class="description"
+        value="{{todo.description}}"
+        placeholder="添加详细描述..."
+        auto-height
+        bindblur="updateDescription"
+      />
+    </view>
+
+    <!-- 图片列表 -->
+    <view class="section">
+      <view class="section-title">图片</view>
+      <view class="image-list">
+        <view class="image-grid">
+          <block wx:for="{{images}}" wx:key="path">
+            <view class="image-item">
+              <image 
+                src="{{item.path}}" 
+                mode="aspectFill" 
+                bindtap="previewImage"
+                data-index="{{index}}"
+              />
+              <view class="image-loading" wx:if="{{item.uploading}}">
+                <text>上传中...</text>
+              </view>
+              <view class="delete-btn" bindtap="deleteFile" data-type="image" data-index="{{index}}">
+                <icon type="clear" size="16" color="#fff"/>
+              </view>
+            </view>
+          </block>
+          <view class="add-image" bindtap="chooseImage" wx:if="{{images.length < 9}}">
+            <icon type="plus" size="24" color="#999"/>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 附件列表 -->
+    <view class="section">
+      <view class="section-title">附件</view>
+      <view class="file-list">
+        <block wx:for="{{files}}" wx:key="path">
+          <view class="file-item">
+            <view class="file-info">
+              <icon type="document" size="20" color="#999"/>
+              <text class="file-name">{{item.name || '未命名文件'}}</text>
+              <text class="file-loading" wx:if="{{item.uploading}}">上传中...</text>
+            </view>
+            <view class="delete-btn" bindtap="deleteFile" data-type="file" data-index="{{index}}">
+              <icon type="clear" size="16" color="#999"/>
+            </view>
+          </view>
+        </block>
+        <view class="add-file" bindtap="chooseFile" wx:if="{{files.length < 5}}">
+          <icon type="plus" size="16" color="#999"/>
+          <text>添加附件</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

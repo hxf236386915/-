@@ -6,8 +6,7 @@ module.exports = (req, res, next) => {
     
     if (!token) {
       return res.status(401).json({
-        success: false,
-        message: '未提供认证token'
+        message: '需要重新登录,access_token missing'
       });
     }
 
@@ -15,10 +14,9 @@ module.exports = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    console.error('Auth middleware error:', error);
-    res.status(401).json({
-      success: false,
-      message: '认证失败'
+    console.error('Token验证错误:', error);
+    return res.status(401).json({
+      message: '需要重新登录'
     });
   }
 }; 

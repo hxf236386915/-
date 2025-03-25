@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-info">
+    <image class="avatar" src="{{userInfo.avatarUrl || '/static/images/default-avatar.png'}}" mode="aspectFill"></image>
+    <view class="user-detail">
+      <text class="nickname">{{userInfo.nickName || '未登录'}}</text>
+      <text class="user-id" wx:if="{{userInfo.openid}}">ID: {{userInfo.openid}}</text>
+    </view>
+  </view>
+
+  <!-- 服务配置 -->
+  <view class="section">
+    <view class="section-title">服务配置</view>
+    <view class="config-item">
+      <view class="service-info">
+        <text class="service-name">Flomo</text>
+        <switch checked="{{config.flomo.enabled}}" bindchange="toggleService" data-service="flomo"/>
+      </view>
+      <input 
+        class="api-key-input" 
+        placeholder="请输入Flomo API Key" 
+        value="{{config.flomo.apiKey}}"
+        bindinput="inputApiKey"
+        data-service="flomo"
+      />
+    </view>
+    
+    <view class="config-item">
+      <view class="service-info">
+        <text class="service-name">Notion</text>
+        <switch checked="{{config.notion.enabled}}" bindchange="toggleService" data-service="notion"/>
+      </view>
+      <input 
+        class="api-key-input" 
+        placeholder="请输入Notion API Key" 
+        value="{{config.notion.apiKey}}"
+        bindinput="inputApiKey"
+        data-service="notion"
+      />
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section">
+    <button class="logout-btn" type="warn" bindtap="handleLogout">退出登录</button>
+  </view>
+
+  <view class="section">
+    <button type="primary" bindtap="testCloud">测试云开发</button>
+  </view>
+  
+  <view class="section" wx:if="{{testResult}}">
+    <view class="title">测试结果：</view>
+    <view class="content">{{testResult.result.message}}</view>
+    <view class="content" wx:if="{{testResult.result.data}}">
+      <text>创建的测试数据：</text>
+      <text>{{testResult.result.data.content}}</text>
+    </view>
+  </view>
+</view> 

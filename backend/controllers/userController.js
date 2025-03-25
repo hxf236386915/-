@@ -3,56 +3,47 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
   try {
-    const { openid, unionid, nickName, avatarUrl } = req.body;
+    const { code, userInfo } = req.body;
+
+    // 模拟微信登录，实际项目中需要调用微信API获取openid
+    const openid = `test_openid_${Date.now()}`;
 
     // 查找或创建用户
     let user = await User.findOne({ openid });
     
     if (!user) {
-      // 首次登录，创建新用户
-      user = new User({
+      user = await User.create({
         openid,
-        unionid,
-        nickName,
-        avatarUrl,
-        firstLoginTime: new Date()
+        nickName: userInfo.nickName,
+        avatarUrl: userInfo.avatarUrl
       });
+    } else {
+      // 更新用户信息
+      user.lastLoginAt = new Date();
+      if (userInfo.nickName) user.nickName = userInfo.nickName;
+      if (userInfo.avatarUrl) user.avatarUrl = userInfo.avatarUrl;
+      await user.save();
     }
 
-    // 更新最后登录时间
-    user.lastLoginTime = new Date();
-    user.nickName = nickName;
-    user.avatarUrl = avatarUrl;
-    if (unionid) user.unionid = unionid;
-    
-    await user.save();
-
-    // 生成 JWT token
+    // 生成token
     const token = jwt.sign(
-      { userId: user._id, openid },
+      { userId: user._id, openid: user.openid },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
     res.json({
-      success: true,
-      data: {
-        token,
-        user: {
-          openid: user.openid,
-          nickName: user.nickName,
-          avatarUrl: user.avatarUrl,
-          firstLoginTime: user.firstLoginTime,
-          lastLoginTime: user.lastLoginTime,
-          config: user.config
-        }
-      }
+      token,
+      userInfo: {
+        nickName: user.nickName,
+        avatarUrl: user.avatarUrl
+      },
+      config: user.config
     });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('登录错误:', error);
     res.status(500).json({
-      success: false,
-      message: '登录失败'
+      message: '登录失败，请稍后重试'
     });
   }
 };
@@ -62,26 +53,20 @@ exports.getUserInfo = async (req, res) => {
     const user = await User.findOne({ openid: req.user.openid });
     if (!user) {
       return res.status(404).json({
-        success: false,
         message: '用户不存在'
       });
     }
 
     res.json({
-      success: true,
-      data: {
-        openid: user.openid,
+      userInfo: {
         nickName: user.nickName,
-        avatarUrl: user.avatarUrl,
-        firstLoginTime: user.firstLoginTime,
-        lastLoginTime: user.lastLoginTime,
-        config: user.config
-      }
+        avatarUrl: user.avatarUrl
+      },
+      config: user.config
     });
   } catch (error) {
-    console.error('Get user info error:', error);
+    console.error('获取用户信息错误:', error);
     res.status(500).json({
-      success: false,
       message: '获取用户信息失败'
     });
   }

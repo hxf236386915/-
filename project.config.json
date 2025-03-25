@@ -1,7 +1,8 @@
 {
   "description": "项目配置文件",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
     "bundle": false,
@@ -16,10 +17,10 @@
     "preloadBackgroundData": false,
     "minified": true,
     "autoAudits": false,
-    "newFeature": false,
+    "newFeature": true,
     "uglifyFileName": false,
     "uploadWithSourceMap": true,
-    "useIsolateContext": true,
+    "useIsolateContext": false,
     "nodeModules": false,
     "enhance": true,
     "useMultiFrameRuntime": true,
@@ -28,21 +29,33 @@
     "showShadowRootInWxmlPanel": true,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "showES6CompileOption": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "compileWorklet": false,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.4",
+  "libVersion": "3.7.10",
   "appid": "wxc880a9bd21d6dcfd",
-  "projectname": "效率工具集",
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
-  "scripts": {},
-  "staticServerOptions": {
-    "baseURL": "",
-    "servePath": ""
-  },
+  "projectname": "效率小工具",
   "isGameTourist": false,
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {
     "search": {
       "list": []
@@ -62,5 +75,7 @@
     "miniprogram": {
       "list": []
     }
-  }
-} 
+  },
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
+}

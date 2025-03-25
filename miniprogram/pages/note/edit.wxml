@@ -1,0 +1,100 @@
+<view class="container">
+  <view class="note-edit">
+    <!-- 标题输入 -->
+    <view class="title-input">
+      <input 
+        value="{{note.title}}" 
+        placeholder="输入标题" 
+        bindinput="updateTitle"
+      />
+    </view>
+
+    <!-- 工具栏 -->
+    <view class="toolbar">
+      <view class="left">
+        <view class="tool-btn" bindtap="insertMarkdown" data-type="bold">
+          <text>B</text>
+        </view>
+        <view class="tool-btn" bindtap="insertMarkdown" data-type="italic">
+          <text>I</text>
+        </view>
+        <view class="tool-btn" bindtap="insertMarkdown" data-type="link">
+          <text>🔗</text>
+        </view>
+        <view class="tool-btn" bindtap="insertMarkdown" data-type="list">
+          <text>•</text>
+        </view>
+        <view class="tool-btn" bindtap="insertMarkdown" data-type="task">
+          <text>☐</text>
+        </view>
+        <view class="tool-btn" bindtap="insertMarkdown" data-type="code">
+          <text>{ }</text>
+        </view>
+      </view>
+      <view class="right">
+        <view class="tool-btn" bindtap="chooseImage">
+          <text>🖼️</text>
+        </view>
+        <view class="tool-btn" bindtap="chooseFile">
+          <text>📎</text>
+        </view>
+        <view class="tool-btn {{isPreview ? 'active' : ''}}" bindtap="togglePreview">
+          <text>👁️</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 编辑区域 -->
+    <view class="content" hidden="{{isPreview}}">
+      <textarea 
+        value="{{note.content}}" 
+        placeholder="开始编写..." 
+        bindinput="updateContent"
+        style="height: {{contentHeight}}px"
+      />
+    </view>
+
+    <!-- 预览区域 -->
+    <view class="preview" hidden="{{!isPreview}}">
+      <rich-text nodes="{{htmlContent}}"></rich-text>
+    </view>
+
+    <!-- 附件列表 -->
+    <view class="attachments" wx:if="{{files.length > 0 || images.length > 0}}">
+      <!-- 图片列表 -->
+      <view class="images" wx:if="{{images.length > 0}}">
+        <view class="section-title">图片</view>
+        <view class="image-list">
+          <view class="image-item" wx:for="{{images}}" wx:key="index">
+            <image 
+              src="{{item.path}}" 
+              mode="aspectFill" 
+              bindtap="previewImage" 
+              data-index="{{index}}"
+            />
+            <view class="delete-btn" wx:if="{{!item.uploading}}" bindtap="deleteFile" data-type="image" data-index="{{index}}">
+              <text>×</text>
+            </view>
+            <view class="loading" wx:if="{{item.uploading}}">上传中...</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 文件列表 -->
+      <view class="files" wx:if="{{files.length > 0}}">
+        <view class="section-title">附件</view>
+        <view class="file-list">
+          <view class="file-item" wx:for="{{files}}" wx:key="index">
+            <view class="file-info">
+              <text class="file-name">{{item.name || '文件' + (index + 1)}}</text>
+              <text class="loading" wx:if="{{item.uploading}}">上传中...</text>
+            </view>
+            <view class="delete-btn" wx:if="{{!item.uploading}}" bindtap="deleteFile" data-type="file" data-index="{{index}}">
+              <text>×</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

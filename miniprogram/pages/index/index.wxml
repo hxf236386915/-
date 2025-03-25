@@ -1,0 +1,113 @@
+<view class="container">
+  <!-- 日历组件 -->
+  <view class="calendar-wrapper {{isWeekMode ? 'week-mode' : ''}}">
+    <view class="calendar-header">
+      <view class="left">
+        <text>{{currentYear}}年{{headerText ? headerText : currentMonth + '月'}}</text>
+      </view>
+      <view class="right">
+        <text class="mode-switch" bindtap="toggleCalendarMode">{{isWeekMode ? '月' : '周'}}</text>
+      </view>
+    </view>
+    
+    <!-- 星期表头 -->
+    <view class="weekday-header">
+      <block wx:for="{{weekdays}}" wx:key="*this">
+        <text class="weekday">{{item}}</text>
+      </block>
+    </view>
+    
+    <!-- 日历主体 -->
+    <scroll-view 
+      class="calendar-body"
+      scroll-y
+      bindscroll="handleCalendarScroll"
+      enhanced
+      show-scrollbar="{{false}}"
+      binddragstart="handleDragStart"
+      binddragend="handleDragEnd">
+      <view class="calendar-grid">
+        <block wx:if="{{!isWeekMode}}">
+          <view wx:for="{{calendarDays}}" 
+                wx:key="date"
+                class="calendar-day {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}} {{item.isCurrentMonth ? '' : 'other-month'}}"
+                bindtap="selectDate"
+                data-date="{{item.date}}">
+            <text class="day-number">{{item.day}}</text>
+            <view class="day-indicators" wx:if="{{item.hasItems}}">
+              <view class="indicator todo" wx:if="{{item.hasItems.hasTodos}}"></view>
+              <view class="indicator note" wx:if="{{item.hasItems.hasNotes}}"></view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view wx:for="{{currentWeekDays}}" 
+                wx:key="date"
+                class="calendar-day {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}} {{item.isCurrentMonth ? '' : 'other-month'}}"
+                bindtap="selectDate"
+                data-date="{{item.date}}">
+            <text class="day-number">{{item.day}}</text>
+            <view class="day-indicators" wx:if="{{item.hasItems}}">
+              <view class="indicator todo" wx:if="{{item.hasItems.hasTodos}}"></view>
+              <view class="indicator note" wx:if="{{item.hasItems.hasNotes}}"></view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 内容列表 -->
+  <scroll-view 
+    class="content-list"
+    scroll-y
+    enhanced
+    show-scrollbar="{{false}}">
+    <view class="date-header">
+      <text class="selected-date">{{formatDate(selectedDate)}}</text>
+    </view>
+
+    <!-- 待办事项部分 -->
+    <view class="section todos" wx:if="{{todos.length > 0}}">
+      <view class="section-header">
+        <text class="title">待办事项</text>
+        <text class="count">({{todos.length}})</text>
+      </view>
+      <view class="list">
+        <block wx:for="{{todos}}" wx:key="id">
+          <view class="todo-item">
+            <checkbox checked="{{item.completed}}" bindtap="toggleTodoStatus" data-id="{{item.id}}"/>
+            <text class="{{item.completed ? 'completed' : ''}}">{{item.content}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 笔记部分 -->
+    <view class="section notes" wx:if="{{notes.length > 0}}">
+      <view class="section-header">
+        <text class="title">笔记</text>
+        <text class="count">({{notes.length}})</text>
+      </view>
+      <view class="list">
+        <block wx:for="{{notes}}" wx:key="id">
+          <view class="note-item" bindtap="viewNote" data-id="{{item.id}}">
+            <text class="note-title">{{item.title}}</text>
+            <text class="note-preview">{{item.content}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 无数据提示 -->
+    <view class="empty-state" wx:if="{{!todos.length && !notes.length}}">
+      <text>当前日期暂无内容</text>
+      <button class="add-btn" bindtap="showAddMenu">添加内容</button>
+    </view>
+  </scroll-view>
+
+  <!-- 悬浮添加按钮 -->
+  <view class="fab" bindtap="showAddMenu">
+    <text class="plus">+</text>
+  </view>
+</view> 
